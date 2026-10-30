@@ -10,9 +10,6 @@ jobs:
       - name: Unzip Project
         run: unzip BehtarSho-Android-Project.zip
         
-      - name: Check Directory
-        run: ls -R
-        
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
@@ -34,4 +31,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: app-debug
-          path: '**/app-debug.apk'
+          path: '**/*.apk'
