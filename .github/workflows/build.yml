@@ -10,6 +10,9 @@ jobs:
       - name: Unzip Project
         run: unzip BehtarSho-Android-Project.zip
         
+      - name: Check Directory
+        run: ls -R
+        
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
@@ -20,15 +23,15 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
         
       - name: Grant execute permission for gradlew
-        run: chmod +x ./gradlew
-        working-directory: BehtarSho-Android-Project
-        
+        run: |
+          find . -name "gradlew" -exec chmod +x {} \;
+          
       - name: Build debug APK
-        run: ./gradlew assembleDebug
-        working-directory: BehtarSho-Android-Project
-        
+        run: |
+          find . -name "gradlew" -exec {} assembleDebug \;
+          
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: app-debug
-          path: BehtarSho-Android-Project/app/build/outputs/apk/debug/app-debug.apk
+          path: '**/app-debug.apk'
